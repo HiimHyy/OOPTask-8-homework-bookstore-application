@@ -18,13 +18,14 @@ while (true)
         continue;
     }
     Console.WriteLine("\nHere are the books that match your search:");
+
     // new variable 'book' refer to 'Book', loop iterates over 'chosen' list
     foreach (Book book in chosen)
     {
         Console.WriteLine("- " + book.Title + " ($" + book.Price + ")");
     }
 
-    // new 
+    // new variable to calculate total price
     double totalPrice = bookstore.CalcTotalPrice(chosen);
     Console.WriteLine("\nThe total price of your purchase is: $" + totalPrice);
 
@@ -32,7 +33,7 @@ while (true)
     input = Console.ReadLine();
     if (input.ToLower() == "n")
     {
+        Console.WriteLine("Thank you for shopping with us");
         break;
     }
-    Console.WriteLine("Thank you for shopping with us");
 }

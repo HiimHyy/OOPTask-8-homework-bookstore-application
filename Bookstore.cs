@@ -59,17 +59,46 @@ namespace OOPTask_8_homework_bookstore_application
 
         public List<Book> BuyABook(List<string> keywords)
         {
-            List<Book> chosen = new List<Book>();
+            // create a new list 'matchingBooks' to store books that match given 'keyword'
+            List<Book> matchingBooks = new List<Book>();
             foreach (string keyword in keywords)
             {
-                chosen.AddRange(books.Where(book => book.Title.Contains(keyword)));
+                matchingBooks.AddRange(books.Where(book => book.Title.Contains(keyword)));
             }
-            return chosen;
+
+            // create a new list 'chosenBooks' to store books that has been selected to add to the shopping list
+            List<Book> chosenBooks = new List<Book>();
+
+            // the while loop keep repeat the shopping until you enter '0';
+            while(matchingBooks.Count > 0)
+            {
+                Console.WriteLine("\nMatching books: ");
+                for (int i = 0; i < matchingBooks.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {matchingBooks[i].Title} (${matchingBooks[i].Price})");
+                }
+
+                Console.Write("\nEnter the number of the book you want to add to your shopping list (or type '0' to finish shopping): ");
+                int choice;
+                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > matchingBooks.Count)
+                {
+                    Console.WriteLine("Invalid input. Please enter a number between 0 and {0}.", matchingBooks.Count);
+                }
+
+                if (choice == 0)
+                {
+                    break;
+                }
+
+                chosenBooks.Add(matchingBooks[choice - 1]);
+                matchingBooks.RemoveAt(choice - 1);
+            }
+            return chosenBooks;
         }
-        public double CalcTotalPrice(List<Book> chosen)
+        public double CalcTotalPrice(List<Book> matchingBooks)
         {
             double totalPrice = 0;
-            foreach (Book book in chosen)
+            foreach (Book book in matchingBooks)
             {
                 totalPrice += book.Price;
             }
