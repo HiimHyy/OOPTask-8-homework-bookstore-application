@@ -63,7 +63,7 @@ namespace OOPTask_8_homework_bookstore_application
             List<Book> matchingBooks = new List<Book>();
             foreach (string keyword in keywords)
             {
-                matchingBooks.AddRange(books.Where(book => book.Title.Contains(keyword)));
+                matchingBooks.AddRange(books.Where(book => book.Title.ToLower().Contains(keyword.ToLower())));
             }
 
             // create a new list 'chosenBooks' to store books that has been selected to add to the shopping list
